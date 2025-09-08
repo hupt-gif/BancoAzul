@@ -1,0 +1,17 @@
+*.log
+*.tmp
+
+tmp/
+temp/
+
+*~
+*.bak
+*.swp
+*.swo
+
+.vscode/
+.idea/
+
+.DS_Store
+Thumbs.db
+desktop.ini
