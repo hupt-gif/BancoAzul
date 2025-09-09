@@ -1,10 +1,11 @@
 <?php
 declare(strict_types=1);
+error_reporting(0);
 
 require_once 'src/ui.php';
-$name = readName("Digite o nome do titular da conta: "); //Definido antes de banco para carregar corretamente.
-require_once 'src/banco.php';
+//$name = readName("Digite o nome do titular da conta: "); //Verificação descontinuada.
 require_once 'src/operacoes.php';
+require_once 'src/auth.php';
 
 $choice = 0;
 
@@ -18,19 +19,24 @@ while(true){
     
     switch($choice){
         case 1:
-            showBalance($account);
+            echo 'Nome de usuário: ';
+            $name = readInput();
+            echo 'Digite uma senha: ';
+            $password = readInput();
+
+            $user = authUser($name,$password);
+            if($user){
+                bankMenuUser($user); //Função do menu de seleção de operações bancárias
+            }
             break;
         case 2:
-            echo "Digite o valor do depósito R$ ";
-            $value = (float) readInput();
-            deposit($account,$value);
+            echo 'Escolha um nome de usuário: ';
+            $name = readInput();
+            echo 'Escolha uma senha: ';
+            $password = readInput();
+            registerUsers($name,$password);
             break;
         case 3:
-            echo "Digite o valor do saque R$ ";
-            $value = (float) readInput();
-            withdraw($account,$value);
-            break;
-        case 4:
             echo "Fechando o app...";
             sleep(2);
             exit;
